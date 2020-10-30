@@ -12,7 +12,7 @@ test("form header renders",() => {
     expect(header).toBeTruthy()
 });
 
-test("form shows success message on submit with form details", async () => {
+test("form shows success message on submit with form details",() => {
     render(<CheckoutForm/>)
 
     const first = screen.queryByLabelText(/First Name/i)
@@ -22,7 +22,7 @@ test("form shows success message on submit with form details", async () => {
     const state = screen.queryByLabelText(/State/i)
     const zip = screen.queryByLabelText(/Zip/i)
     const button = screen.getByRole('button')
-    const message = screen.findByTestId('successMessage')
+    // const message = screen.findByTestId('successMessage')
 
     fireEvent.change(first, {target:{name: 'firstName', value: 'Gabby'}})
     fireEvent.change(last, {target:{name: 'lastName', value: 'Vicas'}})
@@ -31,5 +31,5 @@ test("form shows success message on submit with form details", async () => {
     fireEvent.change(state, {target:{name:'state', value: 'IL'}})
     fireEvent.change(zip, {target:{name: 'zip', value: '60657'}})
     fireEvent.click(button)
-    await expect(message).toBeTruthy()
+    expect(screen.getAllByText(/Your new green friends will be shipped to:/i))
 });
